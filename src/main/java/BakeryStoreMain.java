@@ -12,7 +12,7 @@ import static java.util.Collections.singletonList;
 public class BakeryStoreMain {
 
     public static void main(String[] args) {
-        BillGenerator billGenerator = new BillGenerator();
+        BillGenerator billGenerator = new BillGenerator(false);
         billGenerator.generateBill();
         billGenerator.displayBill();
     }

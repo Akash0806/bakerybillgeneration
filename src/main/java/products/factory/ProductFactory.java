@@ -2,9 +2,9 @@ package main.java.products.factory;
 
 import main.java.model.Product;
 import main.java.model.ProductCode;
-import main.java.products.implementation.Blueberry;
+import main.java.products.implementation.BlueberryMuffin;
 import main.java.products.implementation.Croissant;
-import main.java.products.implementation.Vegemite;
+import main.java.products.implementation.VegemiteScroll;
 
 import java.util.Optional;
 
@@ -28,10 +28,10 @@ public class ProductFactory {
         if (productCode.isPresent()) {
             switch (productCode.get()) {
                 case VS5:
-                    product = new Vegemite();
+                    product = new VegemiteScroll();
                     break;
                 case MB11:
-                    product = new Blueberry();
+                    product = new BlueberryMuffin();
                     break;
                 case CF:
                     product = new Croissant();

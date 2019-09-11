@@ -2,10 +2,10 @@ package main.java.products.implementation;
 
 import main.java.model.Product;
 
-public class Blueberry extends Product {
+public class BlueberryMuffin extends Product {
     @Override
     public String name() {
-        return "Blueberry Muffin";
+        return "BlueberryMuffin Muffin";
     }
 
     @Override

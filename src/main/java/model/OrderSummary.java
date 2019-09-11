@@ -14,7 +14,7 @@ public class OrderSummary {
     private String productCode;
     private int orderQuanity;
     private float totalAmount;
-    private Map<Integer, Pack> packSummary;
+    private Map<Pack,Integer> packSummary;
 
     @Override
     public String toString() {
@@ -24,9 +24,9 @@ public class OrderSummary {
         if (packSummary.size() == 0) {
             stringBuilder.append("Unable to find possible bunch for order");
         }
-        for (Map.Entry<Integer, Pack> entry : packSummary.entrySet()) {
-            Integer packQuantity = entry.getKey();
-            Pack pack = entry.getValue();
+        for (Map.Entry<Pack,Integer> entry : packSummary.entrySet()) {
+            Integer packQuantity = entry.getValue();
+            Pack pack = entry.getKey();
             stringBuilder.append(packQuantity).append(" x ").append(pack.getQuantity()).append(" ").append(pack.getCurreny()).append(pack.getAmount());
             stringBuilder.append(System.getProperty("line.separator"));
         }

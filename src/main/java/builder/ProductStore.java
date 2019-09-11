@@ -47,11 +47,10 @@ public class ProductStore {
 
     private List<Pack> getPackList(String productCode, List<Integer> packNumberList) {
         List<Pack> packList = new ArrayList<>();
-        Pack packChain = null;
         for (Integer packType : packNumberList) {
             String propertyKey = productCode + Constant.DOT + packType;
             Optional<String> propertyValue = Optional.ofNullable(propertyUtil.getPropertyValue(propertyKey));
-            Optional<Pack> pack = getPack(packType, propertyValue.get(), packChain);
+            Optional<Pack> pack = getPack(packType, propertyValue.get());
             if (pack.isPresent()) {
                 packList.add(pack.get());
             }
@@ -59,7 +58,7 @@ public class ProductStore {
         return packList;
     }
 
-    private Optional<Pack> getPack(Integer packType, String propertyValue, Pack packChain) {
+    private Optional<Pack> getPack(Integer packType, String propertyValue) {
         PackFactory packFactoryInstance = PackFactory.getPackFactoryInstance();
         Optional<Pack> pack = Optional.ofNullable(packFactoryInstance.getPack(packType, Float.valueOf(propertyValue)));
         return pack;

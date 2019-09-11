@@ -2,10 +2,10 @@ package main.java.products.implementation;
 
 import main.java.model.Product;
 
-public class Vegemite extends Product {
+public class VegemiteScroll extends Product {
     @Override
     public String name() {
-        return "Vegemite Scroll";
+        return "VegemiteScroll Scroll";
     }
 
     @Override

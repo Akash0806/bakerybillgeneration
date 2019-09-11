@@ -6,30 +6,34 @@ import main.java.pack.Pack;
 import main.java.products.factory.ProductFactory;
 import main.java.util.BillGenerationUtil;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class CustomerOrderProcessor {
     ProductFactory productFactory;
     ProductStore productStore;
-
+    private static DecimalFormat df = new DecimalFormat("0.00");
     public CustomerOrderProcessor() {
         productStore = ProductStore.getInstance();
         this.productFactory = ProductFactory.getInstance();
     }
 
 
-    public float getTotalCost(Map<Integer, Pack> map) {
+    public float getTotalCost(Map<Pack,Integer> map) {
         float totalCost = 0;
-        for (Map.Entry<Integer, Pack> entry : map.entrySet()) {
-            Integer packQuantity = entry.getKey();
-            Pack pack = entry.getValue();
-            totalCost = totalCost + packQuantity * pack.getAmount();
+        if(map!=null && map.size()>0) {
+            for (Map.Entry<Pack,Integer> entry : map.entrySet()) {
+                Integer packQuantity = entry.getValue();
+                Pack pack = entry.getKey();
+                totalCost = totalCost + packQuantity * pack.getAmount();
+            }
+                totalCost =  BillGenerationUtil.round(totalCost);
         }
         return totalCost;
     }
 
-    public Map<Integer, Pack> getPossiblePackCombination(List<Pack> packs, int orderQuantity) {
-        Map<Integer, Pack> packHashMap = new HashMap<>();
+    public Map<Pack,Integer> getPossiblePackCombination(List<Pack> packs, int orderQuantity) {
+        Map<Pack,Integer> packHashMap = new HashMap<>();
         if (packs != null && !packs.isEmpty()) {
             Collections.sort(packs);
             int remaining = orderQuantity;
@@ -51,7 +55,7 @@ public class CustomerOrderProcessor {
                 }
                 int requiredPack = remaining / packQuantity;
                 if (isDivisible || result == 0) {
-                    packHashMap.put(requiredPack, pack);
+                    packHashMap.put(pack,requiredPack);
                     remaining = result;
                 }
 
@@ -60,7 +64,7 @@ public class CustomerOrderProcessor {
         return packHashMap;
     }
 
-    public Product createProduct(String productCode) {
+    private Product createProduct(String productCode) {
         return productFactory.getProduct(productCode);
     }
 

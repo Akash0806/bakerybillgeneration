@@ -1,6 +1,8 @@
 package main.java.io;
 
+import java.util.List;
+
 @FunctionalInterface
 public interface Reader {
-    String readValue();
+    List<String> readValue();
 }
